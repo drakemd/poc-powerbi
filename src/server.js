@@ -52,9 +52,12 @@ app.get('/getSecret', async function(req, res){
     serviceVersion: "7.0"
     });
 
-    let secret = await client.getSecret('clientId')
-
-    res.send(secret)
+    try{
+        let secret = await client.getSecret('clientId')
+        res.send(secret)
+    }catch(err){
+        res.status(400).send(err)
+    }
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
